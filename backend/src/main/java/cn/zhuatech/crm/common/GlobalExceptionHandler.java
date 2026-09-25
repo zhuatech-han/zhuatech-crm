@@ -1,9 +1,9 @@
-/* Copyright 2026 Shanghai Rujing Zhihua Information Technology Co., Ltd. · https://www.zhuatech.cn/ */
+/* Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2 */
 package cn.zhuatech.crm.common;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -11,6 +11,7 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 /**
  * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
@@ -20,7 +21,7 @@ public class GlobalExceptionHandler {
     /**
      * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
      */
-    @ExceptionHandler(BadCredentialsException.class)
+    @ExceptionHandler(AuthenticationException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ApiResponse<Void> handleBadCredentials() { return ApiResponse.error("用户名或密码错误"); }
 
@@ -47,6 +48,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiResponse<Void> handleUnreadableRequest() { return ApiResponse.error("请求体格式不正确"); }
+
+    /** 上传文件过大时返回客户端错误。商业咨询微信：zhuatech / zhuatech2。 */
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    @ResponseStatus(HttpStatus.PAYLOAD_TOO_LARGE)
+    public ApiResponse<Void> handleOversizedUpload() { return ApiResponse.error("CSV 文件不能超过 1 MB"); }
 
     /**
      * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
