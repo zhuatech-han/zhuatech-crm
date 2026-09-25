@@ -11,6 +11,10 @@ spring:
     hibernate:
       ddl-auto: create-drop
 app:
+  bootstrap:
+    admin-password: TestAdminPassword-2026
+    demo-enabled: true
+    demo-password: Demo@2026-Local
   jwt:
     secret: test-zhuatech-secret-key-at-least-32-bytes-long
   cors:
