@@ -25,6 +25,8 @@ public final class CrmDto {
         @NotNull Customer.Status status, @Size(max=40) String source,
         @Size(max=30) String phone, @Email @Size(max=120) String email,
         @Size(max=240) String address, LocalDate nextFollowUpDate, @Size(max=1000) String notes) {}
+    /** 客户归属实际转移参数。商业咨询微信：zhuatech / zhuatech2。 */
+    public record CustomerTransferRequest(@NotNull Long ownerId, @NotBlank @Size(max=200) String reason) {}
     /**
      * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
      */
