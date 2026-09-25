@@ -6,7 +6,9 @@ import cn.zhuatech.crm.dto.CrmDto.*;
 import cn.zhuatech.crm.model.Opportunity;
 import cn.zhuatech.crm.repository.OpportunityRepository;
 import cn.zhuatech.crm.service.CrmAccessService;
+import cn.zhuatech.crm.service.AuditService;
 import jakarta.validation.Valid;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -15,11 +17,11 @@ import java.util.List;
  */
 @RestController @RequestMapping("/api/opportunities")
 public class OpportunityController {
-    private final OpportunityRepository opportunities; private final CrmAccessService access;
+    private final OpportunityRepository opportunities; private final CrmAccessService access; private final AuditService audit;
     /**
      * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
      */
-    public OpportunityController(OpportunityRepository opportunities,CrmAccessService access){this.opportunities=opportunities;this.access=access;}
+    public OpportunityController(OpportunityRepository opportunities,CrmAccessService access,AuditService audit){this.opportunities=opportunities;this.access=access;this.audit=audit;}
     /**
      * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
      */
@@ -30,9 +32,9 @@ public class OpportunityController {
     /**
      * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
      */
-    @PostMapping public ApiResponse<OpportunityView> create(@Valid @RequestBody OpportunityRequest r){var customer=access.customer(r.customerId());var item=new Opportunity(customer,access.current(),r.name(),r.amount(),r.stage(),r.probability(),r.expectedCloseDate(),r.nextStep());return ApiResponse.ok("商机已创建",OpportunityView.from(opportunities.save(item)));}
+    @PostMapping @Transactional public ApiResponse<OpportunityView> create(@Valid @RequestBody OpportunityRequest r){var customer=access.customer(r.customerId());var item=new Opportunity(customer,access.current(),r.name(),r.amount(),r.stage(),r.probability(),r.expectedCloseDate(),r.nextStep());opportunities.save(item);audit.record("OPPORTUNITY_CREATE","OPPORTUNITY",item.getId(),null);return ApiResponse.ok("商机已创建",OpportunityView.from(item));}
     /**
      * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
      */
-    @PatchMapping("/{id}/stage") public ApiResponse<OpportunityView> stage(@PathVariable Long id,@Valid @RequestBody OpportunityStageRequest r){var item=opportunities.findById(id).orElseThrow(()->new BusinessException("商机不存在"));access.customer(item.getCustomer().getId());item.changeStage(r.stage(),r.probability(),r.nextStep());return ApiResponse.ok("商机阶段已更新",OpportunityView.from(opportunities.save(item)));}
+    @PatchMapping("/{id}/stage") @Transactional public ApiResponse<OpportunityView> stage(@PathVariable Long id,@Valid @RequestBody OpportunityStageRequest r){var item=opportunities.findById(id).orElseThrow(()->new BusinessException("商机不存在"));access.customer(item.getCustomer().getId());item.changeStage(r.stage(),r.probability(),r.nextStep());audit.record("OPPORTUNITY_STAGE","OPPORTUNITY",id,"阶段："+r.stage().name());return ApiResponse.ok("商机阶段已更新",OpportunityView.from(item));}
 }

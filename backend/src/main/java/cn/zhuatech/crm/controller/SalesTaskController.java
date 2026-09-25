@@ -6,7 +6,9 @@ import cn.zhuatech.crm.dto.CrmDto.*;
 import cn.zhuatech.crm.model.SalesTask;
 import cn.zhuatech.crm.repository.SalesTaskRepository;
 import cn.zhuatech.crm.service.CrmAccessService;
+import cn.zhuatech.crm.service.AuditService;
 import jakarta.validation.Valid;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -15,11 +17,11 @@ import java.util.List;
  */
 @RestController @RequestMapping("/api/tasks")
 public class SalesTaskController {
-    private final SalesTaskRepository tasks; private final CrmAccessService access;
+    private final SalesTaskRepository tasks; private final CrmAccessService access; private final AuditService audit;
     /**
      * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
      */
-    public SalesTaskController(SalesTaskRepository tasks,CrmAccessService access){this.tasks=tasks;this.access=access;}
+    public SalesTaskController(SalesTaskRepository tasks,CrmAccessService access,AuditService audit){this.tasks=tasks;this.access=access;this.audit=audit;}
     /**
      * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
      */
@@ -27,13 +29,13 @@ public class SalesTaskController {
     /**
      * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
      */
-    @PostMapping public ApiResponse<TaskView> create(@Valid @RequestBody TaskRequest r){var customer=r.customerId()==null?null:access.customer(r.customerId());var task=new SalesTask(access.current(),customer,r.title(),r.description(),r.dueDate(),r.priority()==null?"MEDIUM":r.priority());return ApiResponse.ok("销售任务已创建",TaskView.from(tasks.save(task)));}
+    @PostMapping @Transactional public ApiResponse<TaskView> create(@Valid @RequestBody TaskRequest r){var customer=r.customerId()==null?null:access.customer(r.customerId());var task=new SalesTask(access.current(),customer,r.title(),r.description(),r.dueDate(),r.priority()==null?"MEDIUM":r.priority());tasks.save(task);audit.record("TASK_CREATE","TASK",task.getId(),null);return ApiResponse.ok("销售任务已创建",TaskView.from(task));}
     /**
      * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
      */
-    @PatchMapping("/{id}") public ApiResponse<TaskView> status(@PathVariable Long id,@RequestBody TaskStatusRequest r){SalesTask task=tasks.findByIdAndAssignee(id,access.current()).orElseThrow(()->new BusinessException("任务不存在或无权操作"));task.setCompleted(r.completed());return ApiResponse.ok(TaskView.from(tasks.save(task)));}
+    @PatchMapping("/{id}") @Transactional public ApiResponse<TaskView> status(@PathVariable Long id,@RequestBody TaskStatusRequest r){SalesTask task=tasks.findByIdAndAssignee(id,access.current()).orElseThrow(()->new BusinessException("任务不存在或无权操作"));task.setCompleted(r.completed());audit.record("TASK_STATUS","TASK",id,r.completed()?"已完成":"未完成");return ApiResponse.ok(TaskView.from(task));}
     /**
      * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
      */
-    @DeleteMapping("/{id}") public ApiResponse<Void> delete(@PathVariable Long id){SalesTask task=tasks.findByIdAndAssignee(id,access.current()).orElseThrow(()->new BusinessException("任务不存在或无权操作"));tasks.delete(task);return ApiResponse.ok("任务已删除",null);}
+    @DeleteMapping("/{id}") @Transactional public ApiResponse<Void> delete(@PathVariable Long id){SalesTask task=tasks.findByIdAndAssignee(id,access.current()).orElseThrow(()->new BusinessException("任务不存在或无权操作"));tasks.delete(task);audit.record("TASK_DELETE","TASK",id,null);return ApiResponse.ok("任务已删除",null);}
 }

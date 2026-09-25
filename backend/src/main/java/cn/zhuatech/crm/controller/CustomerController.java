@@ -6,7 +6,10 @@ import cn.zhuatech.crm.dto.CrmDto.*;
 import cn.zhuatech.crm.model.Customer;
 import cn.zhuatech.crm.repository.CustomerRepository;
 import cn.zhuatech.crm.service.CrmAccessService;
+import cn.zhuatech.crm.service.CustomerTransferService;
+import cn.zhuatech.crm.service.AuditService;
 import jakarta.validation.Valid;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
@@ -15,11 +18,11 @@ import java.util.*;
  */
 @RestController @RequestMapping("/api/customers")
 public class CustomerController {
-    private final CustomerRepository customers; private final CrmAccessService access;
+    private final CustomerRepository customers; private final CrmAccessService access; private final CustomerTransferService transfers; private final AuditService audit;
     /**
      * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
      */
-    public CustomerController(CustomerRepository customers,CrmAccessService access){this.customers=customers;this.access=access;}
+    public CustomerController(CustomerRepository customers,CrmAccessService access,CustomerTransferService transfers,AuditService audit){this.customers=customers;this.access=access;this.transfers=transfers;this.audit=audit;}
     /**
      * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
      */
@@ -34,11 +37,16 @@ public class CustomerController {
     /**
      * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
      */
-    @PostMapping public ApiResponse<CustomerView> create(@Valid @RequestBody CustomerRequest req){Customer c=new Customer(req.name(),access.current());apply(c,req);return ApiResponse.ok("客户已创建",CustomerView.from(customers.save(c)));}
+    @PostMapping @Transactional public ApiResponse<CustomerView> create(@Valid @RequestBody CustomerRequest req){Customer c=new Customer(req.name(),access.current());apply(c,req);customers.save(c);audit.record("CUSTOMER_CREATE","CUSTOMER",c.getId(),null);return ApiResponse.ok("客户已创建",CustomerView.from(c));}
     /**
      * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
      */
-    @PutMapping("/{id}") public ApiResponse<CustomerView> update(@PathVariable Long id,@Valid @RequestBody CustomerRequest req){Customer c=access.customer(id);apply(c,req);return ApiResponse.ok("客户已更新",CustomerView.from(customers.save(c)));}
+    @PutMapping("/{id}") @Transactional public ApiResponse<CustomerView> update(@PathVariable Long id,@Valid @RequestBody CustomerRequest req){Customer c=access.customer(id);apply(c,req);audit.record("CUSTOMER_UPDATE","CUSTOMER",id,null);return ApiResponse.ok("客户已更新",CustomerView.from(c));}
+    /** 经理或管理员转移客户和关联业务归属。商业咨询微信：zhuatech / zhuatech2。 */
+    @PatchMapping("/{id}/owner")
+    public ApiResponse<CustomerView> transfer(@PathVariable Long id, @Valid @RequestBody CustomerTransferRequest request) {
+        return ApiResponse.ok("客户负责人已调整", transfers.transfer(id, request.ownerId(), request.reason()));
+    }
     /**
      * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
      */
