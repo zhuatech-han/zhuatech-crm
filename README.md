@@ -1,27 +1,25 @@
 # ZhuaTech CRM — 知华科技 CRM 社区源码版
 
-## 企业级增强：客户归属转移
-
-新增销售权限、目标人员状态、客户容量、销售区域、保护客户、渠道冲突和在途商机交接检查，详见[客户归属转移治理](docs/ENTERPRISE_ACCOUNT_OWNERSHIP_TRANSFER.md)。
-
-## 企业级增强：报价与毛利审批
-
-新增客户/商机核验、价格版本、折扣权限、毛利底线、信用、法务、职责分离和审批路由，详见[报价审批治理](docs/ENTERPRISE_QUOTATION_APPROVAL.md)。
-
-## 企业级增强：商机阶段门禁
-
-新增客户联系授权、阶段证据、折扣权限、决策人、下一步计划和交付可行性联合校验，输出 `ADVANCE / REVIEW / BLOCKED` 决策，详见 [商机阶段门禁](docs/ENTERPRISE_OPPORTUNITY_GATE.md)。
-
-## 企业级增强：客户主数据合并
-
-新增重复客户合并治理，统一校验法律主体、数据归属、联系人授权、商机、合同、应收、服务工单、营销偏好、字段冲突、双负责人审批、职责分离和审计证据，详见[客户主数据合并治理](docs/ENTERPRISE_CUSTOMER_ACCOUNT_MERGE.md)。
-
 [![License](https://img.shields.io/badge/license-Community_Source_Noncommercial-orange.svg)](LICENSE)
 [![Java](https://img.shields.io/badge/Java-21-ED8B00.svg)](backend/pom.xml)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.0-6DB33F.svg)](backend/pom.xml)
 [![Vue](https://img.shields.io/badge/Vue-3-42b883.svg)](frontend/package.json)
 
-ZhuaTech CRM（知华 CRM）是由 **[知华科技（上海如静知华信息科技有限公司）](https://www.zhuatech.cn/)** 提供源码的移动客户关系管理系统。项目采用 Java、Spring Boot、Vue 3、H5 和 MySQL 构建，包含客户、联系人、销售商机、跟进记录和销售任务等 CRM 基础能力，可用于个人学习 Java CRM、Vue CRM、销售管理系统和客户管理系统的设计与实现。
+ZhuaTech CRM（知华 CRM）是由 **[知华科技（上海如静知华信息科技有限公司）](https://www.zhuatech.cn/)** 提供源码的移动客户关系管理系统。销售人员可记录客户、联系人、商机、跟进和任务；管理员可查看销售工作台。前端为 Vue 3 H5，后端为 Java 21 / Spring Boot，数据存储使用 MySQL。
+
+![知华 CRM 实际登录页面](docs/images/crm-login.png)
+
+本地运行实拍，业务记录均为虚构验收数据：
+
+| 销售首页 | 客户详情 | 账号管理 |
+| --- | --- | --- |
+| ![客户统计、快捷操作和最近跟进](docs/images/crm-home.jpg) | ![客户档案、跟进及联系人和商机入口](docs/images/crm-customer-detail.jpg) | ![管理员创建、启停账号与重置密码](docs/images/crm-admin-users.jpg) |
+
+| 客户交接 | 客户数据 | 操作记录 |
+| --- | --- | --- |
+| ![填写新负责人和交接原因](docs/images/crm-customer-transfer.jpg) | ![管理员导入与导出客户档案](docs/images/crm-admin-data.jpg) | ![交接与导入操作记录](docs/images/crm-admin-audit.jpg) |
+
+后文单列的规则 API 不代表已有对应的 H5 操作页面。
 
 > [!IMPORTANT]
 > **使用限制：本工程仅允许个人用于非商业性的学习、研究与技术交流，不得用于任何商业用途。企业内部使用、生产部署、SaaS、项目交付、咨询实施、二次开发后销售或其他直接、间接商业使用，均须事先取得上海如静知华信息科技有限公司的书面商业授权。完整条款请阅读 [LICENSE](LICENSE)。**
@@ -29,10 +27,6 @@ ZhuaTech CRM（知华 CRM）是由 **[知华科技（上海如静知华信息科
 > 本项目为“源码开放/社区源码版”，因包含非商业限制，不属于 OSI 定义的开源软件。
 
 > 官方网站：[https://www.zhuatech.cn/](https://www.zhuatech.cn/) · 商业授权、深度开发、私有化部署与定制功能，请联系知华科技。
-
-## 可解释线索评分
-
-`POST /api/crm/insights/lead-score` 将客户匹配度、购买意向、互动活跃度、沉默天数、预算和决策人触达情况组合为 0—100 分，返回 `HOT / WARM / COLD` 分级和下一步销售动作。评分规则保持透明，适合在此基础上接入企业自己的线索字段与权重。
 
 ## 功能特性
 
@@ -43,8 +37,12 @@ ZhuaTech CRM（知华 CRM）是由 **[知华科技（上海如静知华信息科
 - 销售任务：关联客户、优先级、截止日期、完成状态和个人任务清单
 - 销售工作台：客户数量、进行中商机、预计销售漏斗、待跟进和待办统计
 - 权限基础：管理员、销售经理、销售人员角色及销售数据范围控制
+- 账号管理：管理员创建、启停账号并重置成员密码；成员可修改本人密码，旧登录随即失效
+- 客户交接：经理或管理员填写原因后转移负责人，关联商机和任务同步转移
+- 数据迁移：管理员按 UTF-8 CSV 模板导入和导出客户档案；错误行使整批导入失败
+- 操作记录：管理员可查看最近 100 条账号及核心业务修改记录；交接原因避免填写敏感信息
 - 移动 H5：面向手机端的客户卡片、商机推进、快速拨号与跟进录入
-- 工程能力：JWT、MySQL 迁移、Docker Compose、Nginx 和 GitHub Actions CI
+- 工程能力：JWT、MySQL 迁移、数据库备份、Docker Compose、Nginx 和 GitHub Actions CI
 
 ## 技术架构
 
@@ -55,28 +53,28 @@ ZhuaTech CRM（知华 CRM）是由 **[知华科技（上海如静知华信息科
 | 数据库 | MySQL 8.4（测试环境可使用 H2） |
 | 部署 | Docker、Docker Compose、Nginx |
 
-后端使用 `cn.zhuatech.crm` 根包名，前后端通过 REST API 解耦。详细设计见 [架构文档](docs/ARCHITECTURE.md) 和 [API 文档](docs/API.md)。
+后端使用 `cn.zhuatech.crm` 根包名，前后端通过 REST API 解耦。使用步骤见[操作手册](docs/操作手册.md)，技术细节见[架构文档](docs/ARCHITECTURE.md)和[API 文档](docs/API.md)。
 
-## 5 分钟启动
+## 本地演示启动
 
-前置条件：Docker Desktop / Docker Engine 24+ 与 Docker Compose v2。以下方式仅供个人非商业学习环境使用；商业或生产部署前须取得书面授权。
+前置条件：Python 3.8+、Docker Desktop / Docker Engine 24+ 与 Docker Compose v2+。以下方式仅供个人非商业学习环境使用；商业或生产部署前须取得书面授权。
 
 ```bash
-cp .env.example .env
+python3 scripts/init_demo_env.py
 docker compose up --build -d
 ```
 
-浏览器访问：<http://localhost:8088>
+浏览器在本机访问：<http://localhost:8088>。首次生成的 `.env` 仅允许本机读取且已被 Git 忽略；请妥善保存，不要上传或发送给他人。脚本不会覆盖已有 `.env`。
 
-| 类型 | 账号 | 密码 |
+| 类型 | 账号 | 密码所在配置项 |
 | --- | --- | --- |
-| 销售体验 | `demo` | `Demo@2026` |
-| 销售经理 | `manager` | `Demo@2026` |
-| 管理员 | `admin` | `ZhuaTech@2026` |
+| 销售体验 | `demo` | `.env` 中的 `CRM_DEMO_PASSWORD` |
+| 销售经理 | `manager` | `.env` 中的 `CRM_DEMO_PASSWORD` |
+| 管理员 | `admin` | `.env` 中的 `CRM_ADMIN_PASSWORD` |
 
-系统首次启动会创建两家示例客户、一条销售商机、联系人、跟进记录和销售任务，方便体验完整 CRM 流程。
+本地演示配置将 Web 端绑定在 `127.0.0.1`，首次启动会创建两家**虚构**客户、一条销售商机、联系人、跟进记录和销售任务。若将 `CRM_DEMO_ENABLED` 设为 `false`，空库只创建管理员，不创建演示账号和数据。
 
-> 体验密码与示例数据仅用于个人本地学习。部署到公网前必须修改初始化账号、数据库密码和 `JWT_SECRET`，并清除示例数据。
+> 管理员可创建、启停账号并重置其他成员密码；成员可修改本人密码。已有最近 100 条核心修改操作记录，仍缺少企业身份接入、审计长期归档和完整的客户去重机制。商业交付前须禁用演示数据，并按[部署说明](deploy/README.md)与[交付验收清单](deploy/交付验收清单.md)验证 HTTPS、备份恢复与监控。不要直接把本地演示编排暴露到公网。
 
 停止服务：
 
@@ -88,7 +86,7 @@ docker compose down
 
 ## 本地开发
 
-后端需要 JDK 21、Maven 3.9 和 MySQL 8：
+后端需要 JDK 21、Maven 3.9 和 MySQL 8，并设置 `DB_URL`、`DB_USERNAME`、`DB_PASSWORD`、`JWT_SECRET`、`CRM_ADMIN_PASSWORD`。首次空库启动时 `CRM_ADMIN_PASSWORD` 必须至少 12 个字符；要创建演示账号时额外设置 `CRM_DEMO_ENABLED=true` 和 `CRM_DEMO_PASSWORD`。
 
 ```bash
 cd backend
@@ -117,12 +115,21 @@ zhuatech-crm/
 └── README.md
 ```
 
+## 后端规则 API 示例
+
+以下能力通过 API 提供，部分尚未接入 H5 页面，接入前可先阅读 [API 文档](docs/API.md)：
+
+- 线索评分、客户健康度、商机加权预测、下一最佳销售动作、AI 销售教练：以规则给出评分或建议；AI 销售教练可选配兼容模型。
+- 企业流程校验：线索转客户、[商机阶段门禁](docs/ENTERPRISE_OPPORTUNITY_GATE.md)、[报价与毛利审批](docs/ENTERPRISE_QUOTATION_APPROVAL.md)、[客户归属转移](docs/ENTERPRISE_ACCOUNT_OWNERSHIP_TRANSFER.md)、[客户主数据合并](docs/ENTERPRISE_CUSTOMER_ACCOUNT_MERGE.md)。
+
+以上是可二次开发的规则服务，不等于已连接企业现有 CRM、ERP 或真实审批流程。
+
 ## 路线图
 
 - [ ] 线索池、公海客户、客户查重与分配回收
 - [ ] 产品、报价、合同、订单、回款和开票管理
 - [ ] 销售目标、业绩排行、漏斗分析和预测报表
-- [ ] PC 管理后台、字段配置、操作审计和细粒度数据权限
+- [ ] PC 管理后台、字段配置、审计长期归档和细粒度数据权限
 - [ ] 企业微信、钉钉、短信、邮件和呼叫中心集成
 - [ ] 多租户、开放 API、Webhook 与低代码流程配置
 
@@ -140,7 +147,9 @@ zhuatech-crm/
 
 如果你需要商业授权、CRM 系统深度开发、销售流程定制、私有化部署、系统集成或技术支持，请访问 **[知华科技官网](https://www.zhuatech.cn/)** 联系上海如静知华信息科技有限公司。
 
-### 微信咨询
+## 联系知华科技
+
+官网：[https://www.zhuatech.cn/](https://www.zhuatech.cn/) · 商业授权、定制开发、私有化部署与系统集成咨询微信：`zhuatech` / `zhuatech2`。
 
 扫描下方任一二维码添加微信，可咨询 ZhuaTech CRM 部署、二次开发、功能定制及企业数字化解决方案。
 
@@ -152,34 +161,6 @@ zhuatech-crm/
 
 <p align="center">任选一个二维码扫码添加微信，联系知华科技</p>
 
-### 相关关键词
-
-CRM 社区源码、Java CRM 学习项目、Spring Boot CRM、Vue CRM、H5 客户管理、销售管理系统、客户关系管理系统、商机管理、客户跟进系统、CRM 商业授权、CRM 私有化部署。
-
 ---
 
 Copyright © 2026 上海如静知华信息科技有限公司（知华科技）
-
-## 客户经营新增健康度雷达
-
-社区版现在可以把互动活跃度、付款风险、未结商机、静默天数和重大客诉合并为 0–100 的客户健康分，并给出 `HEALTHY / WATCH / RISK` 分层。风险客户会返回回访、账期复核和客诉闭环建议，方便销售主管把有限精力放在最需要干预的客户上。
-
-调用入口为 `POST /api/customer-intelligence/health-score`，该能力已加入登录态集成测试。
-
-## 商机加权预测与风险排序
-
-新增 `POST /api/customer-intelligence/opportunity-forecast`，把商机金额、成交概率、销售阶段、预计签约日和停滞天数组合成加权预测、Commit、Upside 与目标覆盖率，并按赢单风险输出主管干预顺序。商机 H5 页面可以基于当前销售漏斗一键生成预测，让团队既看到“可能成交多少钱”，也看到“哪些单子最需要推进”。
-
-## 下一最佳销售动作
-
-`POST /api/crm/insights/next-best-action` 综合商机金额、沉默天数、阶段概率、关系覆盖、未结问题与合同到期时间，对客户进行优先级排序，并给出续约、问题闭环、决策链补齐或价值回顾等下一步动作。
-
-## AI 销售教练与异议处理
-
-新增 `POST /api/crm/ai/sales-coach`，根据阶段停留、联系频率、客户关系覆盖、竞争对手和异议清单形成商机风险分、下一步销售动作及沟通建议。未配置模型时使用透明规则；用户可通过 `ZHUATECH_AI_PROVIDER`、`ZHUATECH_AI_BASE_URL`、`ZHUATECH_AI_MODEL`、`ZHUATECH_AI_API_KEY` 自行连接 DeepSeek 或任意 OpenAI 兼容模型，生成提问清单与异议处理话术。
-
-检索关键词：AI CRM、智能销售系统、AI 销售教练、商机分析、销售话术生成、DeepSeek CRM、客户关系管理 AI、知华科技 CRM。
-
-## 企业线索转客户门禁
-
-新增 `POST /api/enterprise/crm/lead-conversion`，在线索转为正式客户前检查资格分、联系人核验与授权、客户负责人、重复企业、法律主体及下游同步准备。精确命中已有主体时只允许关联现有客户；疑似重复进入 `REVIEW`，缺少授权或资格不足返回 `BLOCKED`，从源头减少重复客户、无效线索和未经授权的营销数据。
