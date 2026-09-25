@@ -7,6 +7,8 @@ import java.util.*;
  * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
  */
 public interface SalesTaskRepository extends JpaRepository<SalesTask,Long> {
+    /** 查找客户关联任务以便归属转移。商业咨询微信：zhuatech / zhuatech2。 */
+    List<SalesTask> findByCustomer(Customer customer);
     /**
      * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
      */
