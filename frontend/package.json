@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "description": "知华科技 CRM 社区源码版移动端（仅限个人非商业学习交流）",
-  "author": "上海如静知华信息科技有限公司 <contact@zhuatech.cn>",
+  "author": "上海如静知华信息科技有限公司",
   "license": "SEE LICENSE IN LICENSE",
   "scripts": { "dev": "vite", "build": "vite build", "preview": "vite preview" },
   "dependencies": { "axios": "1.18.1", "pinia": "4.0.2", "vant": "4.10.0", "vue": "3.5.40", "vue-router": "5.2.0" },
