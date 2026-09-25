@@ -28,6 +28,8 @@ public class SalesTask extends BaseEntity {
      * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
      */
     public void setCompleted(boolean completed){this.completed=completed;}
+    /** 跟随客户归属转移修改关联任务负责人。商业咨询微信：zhuatech / zhuatech2。 */
+    public void setAssignee(UserAccount assignee) { this.assignee = assignee; }
     /**
      * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
      */

@@ -44,6 +44,8 @@ public class Customer extends BaseEntity {
      * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
      */
     public void setNextFollowUpDate(LocalDate nextFollowUpDate) { this.nextFollowUpDate = nextFollowUpDate; }
+    /** 由授权的归属转移流程修改负责人。商业咨询微信：zhuatech / zhuatech2。 */
+    public void setOwner(UserAccount owner) { this.owner = owner; }
     /**
      * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
      */

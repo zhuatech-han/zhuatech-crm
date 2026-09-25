@@ -34,6 +34,8 @@ public class Opportunity extends BaseEntity {
      * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
      */
     public void changeStage(Stage stage, int probability, String nextStep) { this.stage=stage; this.probability=probability; this.nextStep=nextStep; }
+    /** 跟随客户归属转移修改商机负责人。商业咨询微信：zhuatech / zhuatech2。 */
+    public void setOwner(UserAccount owner) { this.owner = owner; }
     /**
      * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
      */
