@@ -1,4 +1,32 @@
-<!-- Copyright 2026 Shanghai Rujing Zhihua Information Technology Co., Ltd. · https://www.zhuatech.cn/ -->
-<script setup>const groups=[{title:'客户经营',items:[['客户管理','friends-o','/customers'],['联系人','contact-o','/customers'],['跟进记录','chat-o','/follow-ups'],['销售任务','todo-list-o','/tasks']]},{title:'销售过程',items:[['商机漏斗','chart-trending-o','/opportunities'],['销售线索','aim',''],['合同订单','orders-o',''],['回款计划','balance-list-o','']]},{title:'数据分析',items:[['销售看板','bar-chart-o',''],['客户分析','cluster-o',''],['业绩目标','medal-o',''],['数据导出','down','']]}]</script>
-<template><div class="page safe-top"><van-nav-bar title="CRM 工作台" left-arrow @click-left="$router.back()"/><section v-for="group in groups" :key="group.title" class="card"><div class="section-heading">{{group.title}}</div><div class="grid"><component :is="item[2]?'router-link':'div'" v-for="item in group.items" :key="item[0]" :to="item[2]" class="app-icon" :class="{disabled:!item[2]}"><span class="circle"><van-icon :name="item[1]"/></span><span>{{item[0]}}</span></component></div></section><div class="version">ZhuaTech CRM Community v1.0.0</div></div></template>
-<style scoped>.van-nav-bar{background:transparent;margin:-8px -16px 14px}.section-heading{font-weight:700;margin-bottom:18px}.app-icon{text-decoration:none}.disabled{opacity:.35}.version{text-align:center;color:#a0adb1;font-size:12px;margin:30px 0}</style>
+<!-- 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2 -->
+<script setup>
+const entries = [
+  ['客户管理', 'friends-o', '/customers'],
+  ['跟进记录', 'chat-o', '/follow-ups'],
+  ['销售任务', 'todo-list-o', '/tasks'],
+  ['商机漏斗', 'chart-trending-o', '/opportunities']
+]
+</script>
+
+<template>
+  <div class="page safe-top">
+    <van-nav-bar title="CRM 工作台" left-arrow @click-left="$router.back()" />
+    <section class="card">
+      <div class="section-heading">业务入口</div>
+      <div class="grid">
+        <router-link v-for="entry in entries" :key="entry[0]" :to="entry[2]" class="app-icon">
+          <span class="circle"><van-icon :name="entry[1]" /></span>
+          <span>{{ entry[0] }}</span>
+        </router-link>
+      </div>
+    </section>
+    <div class="version">ZhuaTech CRM Community v1.0.0</div>
+  </div>
+</template>
+
+<style scoped>
+.van-nav-bar{background:transparent;margin:-8px -16px 14px}
+.section-heading{font-weight:700;margin-bottom:18px}
+.app-icon{text-decoration:none}
+.version{text-align:center;color:#a0adb1;font-size:12px;margin:30px 0}
+</style>
