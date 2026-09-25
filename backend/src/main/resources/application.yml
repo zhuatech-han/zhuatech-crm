@@ -5,7 +5,7 @@ spring:
   datasource:
     url: ${DB_URL:jdbc:mysql://localhost:3306/zhuatech_crm?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&useSSL=false}
     username: ${DB_USERNAME:zhuatech}
-    password: ${DB_PASSWORD:zhuatech_dev_password}
+    password: ${DB_PASSWORD:}
   jpa:
     open-in-view: false
     hibernate:
@@ -20,8 +20,12 @@ server:
   port: ${SERVER_PORT:8080}
   forward-headers-strategy: framework
 app:
+  bootstrap:
+    admin-password: ${CRM_ADMIN_PASSWORD:}
+    demo-enabled: ${CRM_DEMO_ENABLED:false}
+    demo-password: ${CRM_DEMO_PASSWORD:}
   jwt:
-    secret: ${JWT_SECRET:change-this-zhuatech-crm-secret-at-least-32-bytes}
+    secret: ${JWT_SECRET:}
     expiration: PT24H
   cors:
     allowed-origins: ${CORS_ORIGINS:http://localhost:5173,http://127.0.0.1:5173,http://localhost:8088,http://127.0.0.1:8088}
