@@ -153,13 +153,9 @@ zhuatech-crm/
 
 扫描下方任一二维码添加微信，可咨询 ZhuaTech CRM 部署、二次开发、功能定制及企业数字化解决方案。
 
-<p align="center">
-  <img src="docs/images/zhuatech-wechat-consulting.png" width="280" alt="知华科技微信咨询二维码一｜上海如静知华信息科技有限公司" />
-  &nbsp;&nbsp;
-  <img src="docs/images/zhuatech-wechat-consulting-2.png" width="280" alt="知华科技微信咨询二维码二｜上海如静知华信息科技有限公司" />
-</p>
-
-<p align="center">任选一个二维码扫码添加微信，联系知华科技</p>
+| 微信 zhuatech | 微信 zhuatech2 |
+| :---: | :---: |
+| <img src="docs/images/zhuatech-wechat-consulting.png" alt="微信 zhuatech" height="200"> | <img src="docs/images/zhuatech-wechat-consulting-2.png" alt="微信 zhuatech2" height="200"> |
 
 ---
 
