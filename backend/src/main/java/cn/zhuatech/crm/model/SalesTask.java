@@ -1,11 +1,14 @@
-/* Copyright 2026 Shanghai Rujing Zhihua Information Technology Co., Ltd. · https://www.zhuatech.cn/ */
+/* Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2 */
 package cn.zhuatech.crm.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
 /**
- * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ * 持久化销售待办、执行人及完成状态。
+ *
+ * Copyright 2026 上海如静知华信息科技有限公司
+ * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
  */
 @Entity @Table(name = "crm_sales_task")
 public class SalesTask extends BaseEntity {
@@ -16,40 +19,28 @@ public class SalesTask extends BaseEntity {
     private LocalDate dueDate;
     @Column(nullable = false, length = 20) private String priority;
     @Column(nullable = false) private boolean completed;
-    /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-     */
+
     protected SalesTask() {}
-    /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-     */
+
     public SalesTask(UserAccount assignee, Customer customer, String title, String description, LocalDate dueDate, String priority) { this.assignee=assignee; this.customer=customer; this.title=title; this.description=description; this.dueDate=dueDate; this.priority=priority; }
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 修改任务完成标记。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public void setCompleted(boolean completed){this.completed=completed;}
-    /** 跟随客户归属转移修改关联任务负责人。商业咨询微信：zhuatech / zhuatech2。 */
-    public void setAssignee(UserAccount assignee) { this.assignee = assignee; }
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 跟随客户归属转移修改关联任务负责人。商业咨询微信：zhuatech / zhuatech2。
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
-    public UserAccount getAssignee(){return assignee;} /**
-                                                        * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-                                                        */
-public Customer getCustomer(){return customer;} /**
-                                                                                                        * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-                                                                                                        */
-public String getTitle(){return title;} /**
-                                                                                                                                                * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-                                                                                                                                                */
-public String getDescription(){return description;} /**
-                                                                                                                                                                                                    * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-                                                                                                                                                                                                    */
-public LocalDate getDueDate(){return dueDate;} /**
-                                                                                                                                                                                                                                                   * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-                                                                                                                                                                                                                                                   */
-public String getPriority(){return priority;} /**
-                                                                                                                                                                                                                                                                                                 * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-                                                                                                                                                                                                                                                                                                 */
-public boolean isCompleted(){return completed;}
+    public void setAssignee(UserAccount assignee) { this.assignee = assignee; }
+
+    public UserAccount getAssignee(){return assignee;}
+    public Customer getCustomer(){return customer;}
+    public String getTitle(){return title;}
+    public String getDescription(){return description;}
+    public LocalDate getDueDate(){return dueDate;}
+    public String getPriority(){return priority;}
+    public boolean isCompleted(){return completed;}
 }
