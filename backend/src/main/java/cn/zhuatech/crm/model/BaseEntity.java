@@ -1,37 +1,30 @@
-/* Copyright 2026 Shanghai Rujing Zhihua Information Technology Co., Ltd. · https://www.zhuatech.cn/ */
+/* Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2 */
 package cn.zhuatech.crm.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 /**
- * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ * 提供业务实体主键及创建、更新审计时间。
+ *
+ * Copyright 2026 上海如静知华信息科技有限公司
+ * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
  */
 @MappedSuperclass
-public abstract class BaseEntity {
+    public abstract class BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false, updatable = false) private LocalDateTime createdAt;
     @Column(nullable = false) private LocalDateTime updatedAt;
 
-    /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-     */
+
     @PrePersist void prePersist() { createdAt = updatedAt = LocalDateTime.now(); }
-    /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-     */
+
     @PreUpdate void preUpdate() { updatedAt = LocalDateTime.now(); }
-    /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-     */
+
     public Long getId() { return id; }
-    /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-     */
+
     public LocalDateTime getCreatedAt() { return createdAt; }
-    /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-     */
+
     public LocalDateTime getUpdatedAt() { return updatedAt; }
 }

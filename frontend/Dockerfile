@@ -1,4 +1,4 @@
-# Copyright 2026 Shanghai Rujing Zhihua Information Technology Co., Ltd.
+# Copyright 2026 Shanghai Rujing Zhihua Information Technology Co., Ltd. · 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2
 FROM node:24-alpine AS build
 WORKDIR /workspace
 COPY package*.json ./

@@ -4,7 +4,10 @@ package cn.zhuatech.crm.model;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-/** 记录业务修改元数据；交接原因由操作人填写，避免录入敏感信息。商业咨询微信：zhuatech / zhuatech2。 */
+/**
+ * 记录业务修改元数据；交接原因由操作人填写，避免录入敏感信息。商业咨询微信：zhuatech / zhuatech2。
+ * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
+ */
 @Entity
 @Table(name = "crm_audit_log")
 public class AuditEvent {
@@ -19,7 +22,9 @@ public class AuditEvent {
 
     protected AuditEvent() {}
 
-    /** 构造只追加的审计记录。商业咨询微信：zhuatech / zhuatech2。 */
+    /**
+     * 构造只追加的审计记录。商业咨询微信：zhuatech / zhuatech2。
+     */
     public AuditEvent(UserAccount actor, String action, String targetType, Long targetId, String detail) {
         this.actorId = actor.getId();
         this.actorUsername = actor.getUsername();
@@ -30,20 +35,44 @@ public class AuditEvent {
     }
 
     @PrePersist void onCreate() { createdAt = LocalDateTime.now(); }
-    /** 审计序号。商业咨询微信：zhuatech / zhuatech2。 */
+    /**
+     * 审计序号。商业咨询微信：zhuatech / zhuatech2。
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
+     */
     public Long getId() { return id; }
-    /** 操作人编号。商业咨询微信：zhuatech / zhuatech2。 */
+    /**
+     * 操作人编号。商业咨询微信：zhuatech / zhuatech2。
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
+     */
     public Long getActorId() { return actorId; }
-    /** 操作时的登录名。商业咨询微信：zhuatech / zhuatech2。 */
+    /**
+     * 操作时的登录名。商业咨询微信：zhuatech / zhuatech2。
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
+     */
     public String getActorUsername() { return actorUsername; }
-    /** 操作类型。商业咨询微信：zhuatech / zhuatech2。 */
+    /**
+     * 操作类型。商业咨询微信：zhuatech / zhuatech2。
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
+     */
     public String getAction() { return action; }
-    /** 业务对象类型。商业咨询微信：zhuatech / zhuatech2。 */
+    /**
+     * 业务对象类型。商业咨询微信：zhuatech / zhuatech2。
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
+     */
     public String getTargetType() { return targetType; }
-    /** 业务对象编号。商业咨询微信：zhuatech / zhuatech2。 */
+    /**
+     * 业务对象编号。商业咨询微信：zhuatech / zhuatech2。
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
+     */
     public Long getTargetId() { return targetId; }
-    /** 不含密码的操作摘要。商业咨询微信：zhuatech / zhuatech2。 */
+    /**
+     * 不含密码的操作摘要。商业咨询微信：zhuatech / zhuatech2。
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
+     */
     public String getDetail() { return detail; }
-    /** 操作时间。商业咨询微信：zhuatech / zhuatech2。 */
+    /**
+     * 操作时间。商业咨询微信：zhuatech / zhuatech2。
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
+     */
     public LocalDateTime getCreatedAt() { return createdAt; }
 }

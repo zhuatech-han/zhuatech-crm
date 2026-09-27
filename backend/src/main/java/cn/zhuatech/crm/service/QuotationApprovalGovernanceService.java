@@ -1,4 +1,4 @@
-/* Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/ */
+/* Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2 */
 package cn.zhuatech.crm.service;
 
 import jakarta.validation.constraints.*;
@@ -7,12 +7,18 @@ import java.math.BigDecimal;
 import java.util.*;
 
 /**
- * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ * 根据报价风险和审批规则给出治理评估，不代替真实企业审批。
+ *
+ * Copyright 2026 上海如静知华信息科技有限公司
+ * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
  */
 @Service
 public class QuotationApprovalGovernanceService {
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 依据输入和治理规则返回评估结果，不自动执行第三方业务。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public Assessment assess(Request r) {
         List<String> blockers = new ArrayList<>();
@@ -33,7 +39,10 @@ public class QuotationApprovalGovernanceService {
         return new Assessment(r.quotationNo(), decision, risk, route, List.copyOf(blockers), List.copyOf(actions));
     }
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 封装 Request 的业务输入或返回字段。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public record Request(@NotBlank String quotationNo, @NotBlank String ownerId, @NotBlank String approverId,
                           @NotNull @DecimalMin("0.00") @DecimalMax("1.00") BigDecimal discountRate,
@@ -44,16 +53,25 @@ public class QuotationApprovalGovernanceService {
                           boolean currencyAndTaxConfirmed, boolean customerCreditPassed, boolean nonStandardTerms,
                           boolean legalReviewed, boolean auditEvidenceAttached, boolean followUpScheduled) {}
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 封装 Assessment 的业务输入或返回字段。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public record Assessment(String quotationNo, Decision decision, RiskLevel riskLevel, String approvalRoute,
                              List<String> blockers, List<String> actions) {}
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 定义业务状态或固定角色取值。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public enum Decision { APPROVE, ESCALATE, BLOCKED }
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 定义业务状态或固定角色取值。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public enum RiskLevel { NORMAL, HIGH }
 }

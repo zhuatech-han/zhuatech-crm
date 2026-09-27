@@ -1,16 +1,22 @@
-/* Copyright 2026 Shanghai Rujing Zhihua Information Technology Co., Ltd. · https://www.zhuatech.cn/ */
+/* Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2 */
 package cn.zhuatech.crm.model;
 
 import jakarta.persistence.*;
 import java.time.*;
 
 /**
- * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ * 持久化销售跟进内容、关联客户与下一步计划。
+ *
+ * Copyright 2026 上海如静知华信息科技有限公司
+ * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
  */
 @Entity @Table(name = "crm_follow_up")
 public class FollowUp extends BaseEntity {
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 定义业务状态或固定角色取值。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public enum Method { PHONE, WECHAT, VISIT, EMAIL, OTHER }
     @ManyToOne(fetch = FetchType.EAGER, optional = false) @JoinColumn(name = "customer_id") private Customer customer;
@@ -21,37 +27,17 @@ public class FollowUp extends BaseEntity {
     @Column(nullable = false) private LocalDateTime followUpAt;
     @Column(length = 500) private String nextAction;
     private LocalDate nextFollowUpDate;
-    /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-     */
+
     protected FollowUp() {}
-    /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-     */
+
     public FollowUp(Customer customer, Opportunity opportunity, UserAccount creator, Method method, String content, LocalDateTime followUpAt, String nextAction, LocalDate nextFollowUpDate) { this.customer=customer; this.opportunity=opportunity; this.creator=creator; this.method=method; this.content=content; this.followUpAt=followUpAt; this.nextAction=nextAction; this.nextFollowUpDate=nextFollowUpDate; }
-    /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-     */
-    public Customer getCustomer(){return customer;} /**
-                                                     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-                                                     */
-public Opportunity getOpportunity(){return opportunity;} /**
-                                                                                                              * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-                                                                                                              */
-public UserAccount getCreator(){return creator;} /**
-                                                                                                                                                               * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-                                                                                                                                                               */
-public Method getMethod(){return method;} /**
-                                                                                                                                                                                                         * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-                                                                                                                                                                                                         */
-public String getContent(){return content;} /**
-                                                                                                                                                                                                                                                     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-                                                                                                                                                                                                                                                     */
-public LocalDateTime getFollowUpAt(){return followUpAt;} /**
-                                                                                                                                                                                                                                                                                                              * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-                                                                                                                                                                                                                                                                                                              */
-public String getNextAction(){return nextAction;} /**
-                                                                                                                                                                                                                                                                                                                                                                * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-                                                                                                                                                                                                                                                                                                                                                                */
-public LocalDate getNextFollowUpDate(){return nextFollowUpDate;}
+
+    public Customer getCustomer(){return customer;}
+    public Opportunity getOpportunity(){return opportunity;}
+    public UserAccount getCreator(){return creator;}
+    public Method getMethod(){return method;}
+    public String getContent(){return content;}
+    public LocalDateTime getFollowUpAt(){return followUpAt;}
+    public String getNextAction(){return nextAction;}
+    public LocalDate getNextFollowUpDate(){return nextFollowUpDate;}
 }

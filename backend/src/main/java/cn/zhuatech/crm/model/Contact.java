@@ -1,10 +1,13 @@
-/* Copyright 2026 Shanghai Rujing Zhihua Information Technology Co., Ltd. · https://www.zhuatech.cn/ */
+/* Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2 */
 package cn.zhuatech.crm.model;
 
 import jakarta.persistence.*;
 
 /**
- * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ * 持久化客户联系人及主要联系人标记。
+ *
+ * Copyright 2026 上海如静知华信息科技有限公司
+ * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
  */
 @Entity @Table(name = "crm_contact")
 public class Contact extends BaseEntity {
@@ -15,34 +18,16 @@ public class Contact extends BaseEntity {
     @Column(length = 120) private String email;
     @Column(nullable = false) private boolean primaryContact;
     @Column(length = 500) private String notes;
-    /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-     */
+
     protected Contact() {}
-    /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-     */
+
     public Contact(Customer customer, String name, String title, String phone, String email, boolean primaryContact, String notes) { this.customer=customer; this.name=name; this.title=title; this.phone=phone; this.email=email; this.primaryContact=primaryContact; this.notes=notes; }
-    /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-     */
-    public Customer getCustomer(){return customer;} /**
-                                                     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-                                                     */
-public String getName(){return name;} /**
-                                                                                           * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-                                                                                           */
-public String getTitle(){return title;} /**
-                                                                                                                                   * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-                                                                                                                                   */
-public String getPhone(){return phone;} /**
-                                                                                                                                                                           * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-                                                                                                                                                                           */
-public String getEmail(){return email;} /**
-                                                                                                                                                                                                                   * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-                                                                                                                                                                                                                   */
-public boolean isPrimaryContact(){return primaryContact;} /**
-                                                                                                                                                                                                                                                                             * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-                                                                                                                                                                                                                                                                             */
-public String getNotes(){return notes;}
+
+    public Customer getCustomer(){return customer;}
+    public String getName(){return name;}
+    public String getTitle(){return title;}
+    public String getPhone(){return phone;}
+    public String getEmail(){return email;}
+    public boolean isPrimaryContact(){return primaryContact;}
+    public String getNotes(){return notes;}
 }

@@ -1,4 +1,4 @@
-/* Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/ */
+/* Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2 */
 package cn.zhuatech.crm.service;
 
 import jakarta.validation.constraints.DecimalMax;
@@ -12,12 +12,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ * 按客户互动和业务指标评估客户健康状态。
+ *
+ * Copyright 2026 上海如静知华信息科技有限公司
+ * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
  */
 @Service
 public class CustomerHealthService {
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 按输入指标计算业务评估结果。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public Result evaluate(Request request) {
         int score = Math.max(0, Math.min(100, (int) Math.round(request.engagementScore() * .45
@@ -33,14 +39,20 @@ public class CustomerHealthService {
     }
 
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 封装 Request 的业务输入或返回字段。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public record Request(@NotBlank String customerName, @Min(0) @Max(100) int engagementScore,
                           @DecimalMin("0") @DecimalMax("1") double paymentRisk,
                           @Min(0) int openOpportunities, @Min(0) int inactiveDays,
                           boolean criticalComplaint) {}
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 封装 Result 的业务输入或返回字段。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public record Result(String customerName, int healthScore, String band,
                          boolean managerReview, List<String> actions) {}

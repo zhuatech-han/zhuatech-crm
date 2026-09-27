@@ -1,4 +1,4 @@
-/* Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/ */
+/* Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2 */
 package cn.zhuatech.crm.ai;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -12,7 +12,10 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ * 调用可配置的 OpenAI 兼容模型，并在未配置凭证时拒绝真实模型调用。
+ *
+ * Copyright 2026 上海如静知华信息科技有限公司
+ * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
  */
 @Component
 public class OpenAiCompatibleGateway {
@@ -21,9 +24,7 @@ public class OpenAiCompatibleGateway {
     private final String apiKey;
     private final RestClient client;
 
-    /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-     */
+
     public OpenAiCompatibleGateway(
         @Value("${zhuatech.ai.provider:local}") String provider,
         @Value("${zhuatech.ai.base-url:https://api.deepseek.com}") String baseUrl,
@@ -37,14 +38,20 @@ public class OpenAiCompatibleGateway {
     }
 
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 返回模型配置状态而不暴露 API 密钥。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public Metadata metadata() {
         return new Metadata(provider, model, configured());
     }
 
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 向已配置的模型发起请求并校验模型响应结构。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public Optional<String> complete(String systemPrompt, String businessContext) {
         if (!configured()) return Optional.empty();
@@ -70,14 +77,20 @@ public class OpenAiCompatibleGateway {
     }
 
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 判断模型调用所需配置是否齐备。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     private boolean configured() {
         return !apiKey.isBlank() && !"local".equalsIgnoreCase(provider);
     }
 
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 调用可配置的 OpenAI 兼容模型，并在未配置凭证时拒绝真实模型调用中的 extractContent 操作。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     private Optional<String> extractContent(Map<?, ?> response) {
         if (response == null || !(response.get("choices") instanceof List<?> choices) || choices.isEmpty()) {
@@ -93,7 +106,10 @@ public class OpenAiCompatibleGateway {
     }
 
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 封装 Metadata 的业务输入或返回字段。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public record Metadata(String provider, String model, boolean configured) {}
 }

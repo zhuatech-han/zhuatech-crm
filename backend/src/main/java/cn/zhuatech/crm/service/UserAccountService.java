@@ -13,7 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-/** 账号创建、停用与密码轮换。商业咨询微信：zhuatech / zhuatech2。 */
+/**
+ * 账号创建、停用与密码轮换。商业咨询微信：zhuatech / zhuatech2。
+ * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
+ */
 @Service
 public class UserAccountService {
     private final UserRepository users;
@@ -22,7 +25,9 @@ public class UserAccountService {
     private final JwtService jwt;
     private final AuditService audit;
 
-    /** 注入账号仓储及认证服务。商业咨询微信：zhuatech / zhuatech2。 */
+    /**
+     * 注入账号仓储及认证服务。商业咨询微信：zhuatech / zhuatech2。
+     */
     public UserAccountService(UserRepository users, CurrentUserService current, PasswordEncoder encoder, JwtService jwt, AuditService audit) {
         this.users = users;
         this.current = current;
@@ -31,7 +36,10 @@ public class UserAccountService {
         this.audit = audit;
     }
 
-    /** 本人凭旧密码修改密码，旧令牌立即失效。商业咨询微信：zhuatech / zhuatech2。 */
+    /**
+     * 本人凭旧密码修改密码，旧令牌立即失效。商业咨询微信：zhuatech / zhuatech2。
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
+     */
     @Transactional
     public LoginResponse changePassword(ChangePasswordRequest request) {
         UserAccount user = current.get();
@@ -44,18 +52,24 @@ public class UserAccountService {
         return new LoginResponse(jwt.generate(user), UserView.from(user));
     }
 
-    /** 管理员查看账号，响应中不包含密码。商业咨询微信：zhuatech / zhuatech2。 */
+    /**
+     * 管理员查看账号，响应中不包含密码。商业咨询微信：zhuatech / zhuatech2。
+     */
     @PreAuthorize("hasRole('ADMIN')")
     public List<UserView> list() { return users.findAll().stream().map(UserView::from).toList(); }
 
-    /** 管理员与经理读取可接收客户的启用成员。商业咨询微信：zhuatech / zhuatech2。 */
+    /**
+     * 管理员与经理读取可接收客户的启用成员。商业咨询微信：zhuatech / zhuatech2。
+     */
     @PreAuthorize("hasAnyRole('ADMIN', 'SALES_MANAGER')")
     public List<UserView> assignable() {
         return users.findAll().stream().filter(UserAccount::isEnabled)
                 .filter(user -> user.getRole() != UserAccount.Role.ADMIN).map(UserView::from).toList();
     }
 
-    /** 管理员创建初始账号。商业咨询微信：zhuatech / zhuatech2。 */
+    /**
+     * 管理员创建初始账号。商业咨询微信：zhuatech / zhuatech2。
+     */
     @PreAuthorize("hasRole('ADMIN')")
     @Transactional
     public UserView create(CreateUserRequest request) {
@@ -67,7 +81,9 @@ public class UserAccountService {
         return UserView.from(user);
     }
 
-    /** 管理员重置其他账号的密码，撤销旧令牌。商业咨询微信：zhuatech / zhuatech2。 */
+    /**
+     * 管理员重置其他账号的密码，撤销旧令牌。商业咨询微信：zhuatech / zhuatech2。
+     */
     @PreAuthorize("hasRole('ADMIN')")
     @Transactional
     public UserView resetPassword(Long id, ResetPasswordRequest request) {
@@ -78,7 +94,9 @@ public class UserAccountService {
         return UserView.from(user);
     }
 
-    /** 管理员启停其他账号，撤销旧令牌。商业咨询微信：zhuatech / zhuatech2。 */
+    /**
+     * 管理员启停其他账号，撤销旧令牌。商业咨询微信：zhuatech / zhuatech2。
+     */
     @PreAuthorize("hasRole('ADMIN')")
     @Transactional
     public UserView setEnabled(Long id, SetEnabledRequest request) {
@@ -93,7 +111,10 @@ public class UserAccountService {
         return users.findById(id).orElseThrow(() -> new BusinessException("账号不存在"));
     }
 
-    /** 校验密码长度与常见占位值。商业咨询微信：zhuatech / zhuatech2。 */
+    /**
+     * 校验密码长度与常见占位值。商业咨询微信：zhuatech / zhuatech2。
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
+     */
     public static void validatePassword(String password) {
         if (password == null || password.length() < 12 || password.getBytes(StandardCharsets.UTF_8).length > 72
                 || password.startsWith("change_me") || password.startsWith("replace_me")

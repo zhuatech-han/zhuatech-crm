@@ -1,4 +1,4 @@
-/* Copyright 2026 Shanghai Rujing Zhihua Information Technology Co., Ltd. · https://www.zhuatech.cn/ */
+/* Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2 */
 package cn.zhuatech.crm.config;
 
 import cn.zhuatech.crm.common.ApiResponse;
@@ -26,27 +26,22 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
- * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ * 配置无状态认证、接口安全策略、BCrypt 和受信任来源。
+ *
+ * Copyright 2026 上海如静知华信息科技有限公司
+ * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
  */
 @Configuration @EnableMethodSecurity
 public class SecurityConfig {
-    /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-     */
+
     @Bean UserDetailsService userDetailsService(UserRepository repository) {
         return username -> repository.findByUsername(username).map(u -> User.withUsername(u.getUsername()).password(u.getPassword()).roles(u.getRole().name()).disabled(!u.isEnabled()).build()).orElseThrow(() -> new UsernameNotFoundException("用户不存在"));
     }
-    /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-     */
+
     @Bean PasswordEncoder passwordEncoder() { return new BCryptPasswordEncoder(); }
-    /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-     */
+
     @Bean AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception { return configuration.getAuthenticationManager(); }
-    /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-     */
+
     @Bean CorsConfigurationSource corsConfigurationSource(@Value("${app.cors.allowed-origins}") List<String> origins) {
         CorsConfiguration c = new CorsConfiguration(); c.setAllowedOrigins(origins); c.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")); c.setAllowedHeaders(List.of("*")); c.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource(); source.registerCorsConfiguration("/**", c); return source;
@@ -65,6 +60,7 @@ public class SecurityConfig {
 
     /**
      * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     private static void writeError(jakarta.servlet.http.HttpServletResponse response, ObjectMapper objectMapper, HttpStatus status, String message) throws IOException {
         response.setStatus(status.value());

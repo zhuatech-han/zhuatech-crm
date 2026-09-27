@@ -1,4 +1,4 @@
-/* Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/ */
+/* Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2 */
 package cn.zhuatech.crm.service;
 
 import jakarta.validation.Valid;
@@ -19,11 +19,15 @@ import java.util.List;
  * 汇总销售管道的加权预测，并识别长时间未推进或临近关单的风险商机。
  *
  * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
  */
 @Service
 public class OpportunityForecastService {
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 计算商机风险及汇总销售预测。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public ForecastResult forecast(ForecastRequest request) {
         List<DealForecast> deals = request.deals().stream().map(this::evaluate)
@@ -47,7 +51,10 @@ public class OpportunityForecastService {
     }
 
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 按输入指标计算业务评估结果。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     private DealForecast evaluate(DealInput deal) {
         BigDecimal weighted = deal.amount().multiply(BigDecimal.valueOf(deal.probability()))
@@ -66,25 +73,37 @@ public class OpportunityForecastService {
     }
 
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 封装 DealInput 的业务输入或返回字段。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public record DealInput(@NotBlank String name, @DecimalMin("0") BigDecimal amount,
                             @Min(0) @Max(100) int probability, @NotBlank String stage,
                             LocalDate expectedCloseDate, @Min(0) int daysSinceActivity,
                             boolean criticalBlocker) {}
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 封装 ForecastRequest 的业务输入或返回字段。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public record ForecastRequest(@DecimalMin("0") BigDecimal quarterTarget,
                                   @NotEmpty List<@Valid DealInput> deals) {}
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 封装 DealForecast 的业务输入或返回字段。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public record DealForecast(String name, BigDecimal weightedAmount, String category,
                                int riskScore, boolean managerAttention, long daysToClose,
                                String nextAction) {}
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 封装 ForecastResult 的业务输入或返回字段。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public record ForecastResult(BigDecimal quarterTarget, BigDecimal weightedForecast,
                                  BigDecimal commitForecast, BigDecimal upsideForecast,

@@ -1,22 +1,19 @@
-/* Copyright 2026 Shanghai Rujing Zhihua Information Technology Co., Ltd. · https://www.zhuatech.cn/ */
+/* Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2 */
 package cn.zhuatech.crm.repository;
 import cn.zhuatech.crm.model.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 /**
- * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ * 定义商机持久化查询，供业务服务在完成权限校验后调用。
+ *
+ * Copyright 2026 上海如静知华信息科技有限公司
+ * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
  */
 public interface OpportunityRepository extends JpaRepository<Opportunity,Long> {
-    /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-     */
+
     List<Opportunity> findAllByOrderByUpdatedAtDesc();
-    /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-     */
+
     List<Opportunity> findByOwnerOrderByUpdatedAtDesc(UserAccount owner);
-    /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-     */
+
     List<Opportunity> findByCustomerOrderByUpdatedAtDesc(Customer customer);
 }

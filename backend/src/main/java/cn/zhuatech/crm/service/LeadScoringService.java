@@ -1,4 +1,4 @@
-/* Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/ */
+/* Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2 */
 package cn.zhuatech.crm.service;
 
 import jakarta.validation.constraints.Max;
@@ -10,12 +10,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ * 按业务规则计算线索评分和优先级。
+ *
+ * Copyright 2026 上海如静知华信息科技有限公司
+ * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
  */
 @Service
 public class LeadScoringService {
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 按线索规则计算评分和优先级。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public Result score(Request request) {
         int base = (int) Math.round(request.fitScore() * 0.35 + request.intentScore() * 0.30
@@ -35,7 +41,10 @@ public class LeadScoringService {
     }
 
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 封装 Request 的业务输入或返回字段。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public record Request(@NotBlank String leadCode,
                           @Min(0) @Max(100) int fitScore,
@@ -45,7 +54,10 @@ public class LeadScoringService {
                           boolean budgetConfirmed, boolean decisionMakerConnected) {}
 
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 封装 Result 的业务输入或返回字段。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public record Result(String leadCode, int score, String grade, int inactivityPenalty,
                          List<String> recommendedActions) {}

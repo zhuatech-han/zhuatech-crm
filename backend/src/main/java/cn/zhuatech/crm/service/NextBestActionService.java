@@ -1,4 +1,4 @@
-/* Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/ */
+/* Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2 */
 package cn.zhuatech.crm.service;
 
 import jakarta.validation.constraints.DecimalMin;
@@ -11,12 +11,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ * 依据销售线索和跟进状态建议下一步行动。
+ *
+ * Copyright 2026 上海如静知华信息科技有限公司
+ * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
  */
 @Service
 public class NextBestActionService {
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 按跟进状态生成后续行动建议。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public Result recommend(Request request) {
         int score = Math.min(30, request.daysWithoutContact());
@@ -45,7 +51,10 @@ public class NextBestActionService {
     }
 
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 封装 Request 的业务输入或返回字段。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public record Request(@NotBlank String customerCode,
                           @DecimalMin("0") BigDecimal opportunityAmount,
@@ -56,7 +65,10 @@ public class NextBestActionService {
                           @Min(0) int contractDaysRemaining) {}
 
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 封装 Result 的业务输入或返回字段。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public record Result(String customerCode, int priorityScore, String priority,
                          String nextBestAction, List<String> reasons) {}

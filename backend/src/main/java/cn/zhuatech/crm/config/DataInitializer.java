@@ -22,7 +22,10 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-/** 空库初始化管理员，按显式开关写入虚构演示数据。商业咨询微信：zhuatech / zhuatech2。 */
+/**
+ * 空库初始化管理员，按显式开关写入虚构演示数据。商业咨询微信：zhuatech / zhuatech2。
+ * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
+ */
 @Component
 public class DataInitializer implements CommandLineRunner {
     private final UserRepository users;
@@ -36,7 +39,9 @@ public class DataInitializer implements CommandLineRunner {
     private final boolean demoEnabled;
     private final String demoPassword;
 
-    /** 注入仓储及初始化配置。商业咨询微信：zhuatech / zhuatech2。 */
+    /**
+     * 注入仓储及初始化配置。商业咨询微信：zhuatech / zhuatech2。
+     */
     public DataInitializer(UserRepository users, CustomerRepository customers,
             ContactRepository contacts, OpportunityRepository opportunities,
             FollowUpRepository followUps, SalesTaskRepository tasks, PasswordEncoder encoder,
@@ -55,7 +60,10 @@ public class DataInitializer implements CommandLineRunner {
         this.demoPassword = demoPassword;
     }
 
-    /** 空库创建账号；旧库中发现公开示例密码时轮换或停用账号。商业咨询微信：zhuatech / zhuatech2。 */
+    /**
+     * 空库创建账号；旧库中发现公开示例密码时轮换或停用账号。商业咨询微信：zhuatech / zhuatech2。
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
+     */
     @Override
     @Transactional
     public void run(String... args) {

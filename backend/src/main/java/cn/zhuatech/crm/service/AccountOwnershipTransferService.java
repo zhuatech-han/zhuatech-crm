@@ -1,4 +1,4 @@
-/* Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/ */
+/* Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2 */
 package cn.zhuatech.crm.service;
 
 import jakarta.validation.constraints.Max;
@@ -13,11 +13,15 @@ import java.util.List;
  * 客户负责人转移前执行权限、容量、区域和保护客户治理。
  *
  * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
  */
 @Service
 public class AccountOwnershipTransferService {
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 依据输入和治理规则返回评估结果，不自动执行第三方业务。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public Assessment assess(Request request) {
         List<String> blockers = new ArrayList<>();
@@ -44,7 +48,10 @@ public class AccountOwnershipTransferService {
     }
 
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 封装 Request 的业务输入或返回字段。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public record Request(@NotBlank String transferNo, @NotBlank String accountId,
                           @NotBlank String currentOwnerId, @NotBlank String targetOwnerId,
@@ -58,14 +65,20 @@ public class AccountOwnershipTransferService {
                           boolean customerNotificationPlanned, boolean auditEvidenceAttached) {}
 
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 封装 Assessment 的业务输入或返回字段。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public record Assessment(String transferNo, String accountId, Decision decision,
                              String approvalRoute, String previousOwnerId, String targetOwnerId,
                              List<String> blockers, List<String> actions) {}
 
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 定义业务状态或固定角色取值。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public enum Decision { TRANSFER, REVIEW, BLOCKED }
 }

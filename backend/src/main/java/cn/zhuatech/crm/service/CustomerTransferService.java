@@ -13,7 +13,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/** 实际转移客户及关联业务归属，保留跟进创建人历史。商业咨询微信：zhuatech / zhuatech2。 */
+/**
+ * 实际转移客户及关联业务归属，保留跟进创建人历史。商业咨询微信：zhuatech / zhuatech2。
+ * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
+ */
 @Service
 public class CustomerTransferService {
     private final CustomerRepository customers;
@@ -31,7 +34,9 @@ public class CustomerTransferService {
         this.audit = audit;
     }
 
-    /** 经理或管理员在单一事务内转移客户、商机、任务并记录原因。商业咨询微信：zhuatech / zhuatech2。 */
+    /**
+     * 经理或管理员在单一事务内转移客户、商机、任务并记录原因。商业咨询微信：zhuatech / zhuatech2。
+     */
     @PreAuthorize("hasAnyRole('ADMIN', 'SALES_MANAGER')")
     @Transactional
     public CustomerView transfer(Long customerId, Long ownerId, String reason) {

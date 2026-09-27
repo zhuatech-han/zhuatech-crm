@@ -23,7 +23,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 
-/** 管理员客户 CSV 导入导出；导入整批校验后一次提交。商业咨询微信：zhuatech / zhuatech2。 */
+/**
+ * 管理员客户 CSV 导入导出；导入整批校验后一次提交。商业咨询微信：zhuatech / zhuatech2。
+ * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
+ */
 @Service
 public class CustomerCsvService {
     private static final int MAX_BYTES = 1_000_000;
@@ -42,11 +45,15 @@ public class CustomerCsvService {
         this.audit = audit;
     }
 
-    /** 下载空模板；负责人账号必须填写启用中的销售账号。商业咨询微信：zhuatech / zhuatech2。 */
+    /**
+     * 下载空模板；负责人账号必须填写启用中的销售账号。商业咨询微信：zhuatech / zhuatech2。
+     */
     @PreAuthorize("hasRole('ADMIN')")
     public byte[] template() { return encode(List.of(HEADERS)); }
 
-    /** 导出全部客户，转义电子表格公式起始字符。商业咨询微信：zhuatech / zhuatech2。 */
+    /**
+     * 导出全部客户，转义电子表格公式起始字符。商业咨询微信：zhuatech / zhuatech2。
+     */
     @PreAuthorize("hasRole('ADMIN')")
     @Transactional(readOnly = true)
     public byte[] exportCustomers() {
@@ -62,7 +69,9 @@ public class CustomerCsvService {
         return encode(rows);
     }
 
-    /** 最多导入 500 条客户；任一行无效时整批不写入。商业咨询微信：zhuatech / zhuatech2。 */
+    /**
+     * 最多导入 500 条客户；任一行无效时整批不写入。商业咨询微信：zhuatech / zhuatech2。
+     */
     @PreAuthorize("hasRole('ADMIN')")
     @Transactional
     public int importCustomers(MultipartFile file) {
@@ -145,7 +154,10 @@ public class CustomerCsvService {
         return out.toString().getBytes(StandardCharsets.UTF_8);
     }
 
-    /** 解析带引号与换行的标准 CSV，拒绝未闭合或不规范的引号。 */
+    /**
+     * 解析带引号与换行的标准 CSV，拒绝未闭合或不规范的引号。
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
+     */
     private static List<List<String>> parse(String csv) {
         List<List<String>> rows = new ArrayList<>();
         List<String> row = new ArrayList<>();

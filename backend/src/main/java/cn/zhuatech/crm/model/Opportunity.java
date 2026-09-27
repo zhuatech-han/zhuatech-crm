@@ -1,4 +1,4 @@
-/* Copyright 2026 Shanghai Rujing Zhihua Information Technology Co., Ltd. · https://www.zhuatech.cn/ */
+/* Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2 */
 package cn.zhuatech.crm.model;
 
 import jakarta.persistence.*;
@@ -6,12 +6,18 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 /**
- * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ * 持久化客户商机、金额、阶段及预计成交信息。
+ *
+ * Copyright 2026 上海如静知华信息科技有限公司
+ * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
  */
 @Entity @Table(name = "crm_opportunity")
 public class Opportunity extends BaseEntity {
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 定义业务状态或固定角色取值。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public enum Stage { LEAD, DISCOVERY, PROPOSAL, NEGOTIATION, WON, LOST }
     @ManyToOne(fetch = FetchType.EAGER, optional = false) @JoinColumn(name = "customer_id") private Customer customer;
@@ -22,43 +28,29 @@ public class Opportunity extends BaseEntity {
     @Column(nullable = false) private Integer probability = 10;
     private LocalDate expectedCloseDate;
     @Column(length = 500) private String nextStep;
-    /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-     */
+
     protected Opportunity() {}
-    /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-     */
+
     public Opportunity(Customer customer, UserAccount owner, String name, BigDecimal amount, Stage stage, int probability, LocalDate expectedCloseDate, String nextStep) { this.customer=customer; this.owner=owner; this.name=name; this.amount=amount; this.stage=stage; this.probability=probability; this.expectedCloseDate=expectedCloseDate; this.nextStep=nextStep; }
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 调整商机阶段及对应成交概率。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public void changeStage(Stage stage, int probability, String nextStep) { this.stage=stage; this.probability=probability; this.nextStep=nextStep; }
-    /** 跟随客户归属转移修改商机负责人。商业咨询微信：zhuatech / zhuatech2。 */
-    public void setOwner(UserAccount owner) { this.owner = owner; }
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 跟随客户归属转移修改商机负责人。商业咨询微信：zhuatech / zhuatech2。
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
-    public Customer getCustomer(){return customer;} /**
-                                                     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-                                                     */
-public UserAccount getOwner(){return owner;} /**
-                                                                                                  * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-                                                                                                  */
-public String getName(){return name;} /**
-                                                                                                                                        * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-                                                                                                                                        */
-public BigDecimal getAmount(){return amount;} /**
-                                                                                                                                                                                      * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-                                                                                                                                                                                      */
-public Stage getStage(){return stage;} /**
-                                                                                                                                                                                                                             * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-                                                                                                                                                                                                                             */
-public Integer getProbability(){return probability;} /**
-                                                                                                                                                                                                                                                                                  * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-                                                                                                                                                                                                                                                                                  */
-public LocalDate getExpectedCloseDate(){return expectedCloseDate;} /**
-                                                                                                                                                                                                                                                                                                                                                     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-                                                                                                                                                                                                                                                                                                                                                     */
-public String getNextStep(){return nextStep;}
+    public void setOwner(UserAccount owner) { this.owner = owner; }
+
+    public Customer getCustomer(){return customer;}
+    public UserAccount getOwner(){return owner;}
+    public String getName(){return name;}
+    public BigDecimal getAmount(){return amount;}
+    public Stage getStage(){return stage;}
+    public Integer getProbability(){return probability;}
+    public LocalDate getExpectedCloseDate(){return expectedCloseDate;}
+    public String getNextStep(){return nextStep;}
 }
