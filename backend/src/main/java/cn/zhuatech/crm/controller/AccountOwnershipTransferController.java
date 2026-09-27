@@ -1,4 +1,4 @@
-/* Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/ */
+/* Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2 */
 package cn.zhuatech.crm.controller;
 
 import cn.zhuatech.crm.common.ApiResponse;
@@ -10,22 +10,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ * 评估客户归属移交的业务风险和治理条件的受认证接口。
+ *
+ * Copyright 2026 上海如静知华信息科技有限公司
+ * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
  */
 @RestController
 @RequestMapping("/api/enterprise/crm")
 public class AccountOwnershipTransferController {
     private final AccountOwnershipTransferService service;
 
-    /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-     */
+
     public AccountOwnershipTransferController(AccountOwnershipTransferService service) {
         this.service = service;
     }
 
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 依据输入和治理规则返回评估结果，不自动执行第三方业务。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     @PostMapping("/account-ownership-transfer")
     public ApiResponse<AccountOwnershipTransferService.Assessment> assess(

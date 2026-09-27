@@ -9,7 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-/** 管理员客户数据迁移接口。商业咨询微信：zhuatech / zhuatech2。 */
+/**
+ * 管理员客户数据迁移接口。商业咨询微信：zhuatech / zhuatech2。
+ * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
+ */
 @RestController @RequestMapping("/api/customers")
 public class CustomerCsvController {
     private static final MediaType CSV = MediaType.parseMediaType("text/csv;charset=UTF-8");
@@ -17,13 +20,22 @@ public class CustomerCsvController {
 
     public CustomerCsvController(CustomerCsvService csv) { this.csv = csv; }
 
-    /** 下载 CSV 表头模板。商业咨询微信：zhuatech / zhuatech2。 */
+    /**
+     * 下载 CSV 表头模板。商业咨询微信：zhuatech / zhuatech2。
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
+     */
     @GetMapping("/template") public ResponseEntity<byte[]> template() { return download("crm-customer-template.csv", csv.template()); }
 
-    /** 导出全部客户档案。商业咨询微信：zhuatech / zhuatech2。 */
+    /**
+     * 导出全部客户档案。商业咨询微信：zhuatech / zhuatech2。
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
+     */
     @GetMapping("/export") public ResponseEntity<byte[]> exportCustomers() { return download("crm-customers.csv", csv.exportCustomers()); }
 
-    /** 整批校验并导入客户档案。商业咨询微信：zhuatech / zhuatech2。 */
+    /**
+     * 整批校验并导入客户档案。商业咨询微信：zhuatech / zhuatech2。
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
+     */
     @PostMapping(value = "/import", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ApiResponse<Integer> importCustomers(@RequestPart("file") MultipartFile file) {
         int count = csv.importCustomers(file);
