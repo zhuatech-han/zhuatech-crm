@@ -1,4 +1,4 @@
-/* Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/ */
+/* Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2 */
 package cn.zhuatech.crm.service;
 
 import cn.zhuatech.crm.ai.OpenAiCompatibleGateway;
@@ -10,18 +10,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ * 组合本地销售规则和可选模型适配器生成跟进建议。
+ *
+ * Copyright 2026 上海如静知华信息科技有限公司
+ * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
  */
 @Service
 public class AiSalesCoachService {
     private final OpenAiCompatibleGateway gateway;
-    /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
-     */
+
     public AiSalesCoachService(OpenAiCompatibleGateway gateway) { this.gateway = gateway; }
 
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 使用本地规则及可选模型生成销售辅导建议。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public Result coach(Request request) {
         int risk = 10;
@@ -47,14 +51,20 @@ public class AiSalesCoachService {
     }
 
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 封装 Request 的业务输入或返回字段。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public record Request(@NotBlank String opportunityName, @NotBlank String stage, @Min(0) int daysInStage,
                           @Min(0) int lastContactDays, @Min(0) int stakeholderCount,
                           @NotNull Boolean competitorMentioned, @NotNull List<@NotBlank String> objections,
                           @NotNull Boolean nextMeetingScheduled) {}
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 封装 Result 的业务输入或返回字段。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public record Result(int riskScore, String riskLevel, String coachingAdvice, List<String> nextActions,
                          String aiMode, String provider, String model) {}

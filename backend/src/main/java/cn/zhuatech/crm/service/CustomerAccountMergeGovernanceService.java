@@ -1,4 +1,4 @@
-/* Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/ */
+/* Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2 */
 package cn.zhuatech.crm.service;
 
 import jakarta.validation.constraints.NotBlank;
@@ -7,12 +7,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ * 评估客户主数据合并风险和所需条件，不执行自动合并。
+ *
+ * Copyright 2026 上海如静知华信息科技有限公司
+ * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
  */
 @Service
 public class CustomerAccountMergeGovernanceService {
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 依据输入和治理规则返回评估结果，不自动执行第三方业务。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public Assessment assess(Request request) {
         List<String> blockers = new ArrayList<>();
@@ -40,7 +46,10 @@ public class CustomerAccountMergeGovernanceService {
     }
 
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 封装 Request 的业务输入或返回字段。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public record Request(@NotBlank String mergeRequestId, @NotBlank String survivorAccountId,
                           @NotBlank String duplicateAccountId, boolean legalEntityMatched,
@@ -53,12 +62,18 @@ public class CustomerAccountMergeGovernanceService {
                           boolean duplicateEvidenceArchived, boolean downstreamSyncReady,
                           boolean customerNoticeReady) {}
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 封装 Assessment 的业务输入或返回字段。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public record Assessment(String mergeRequestId, String survivorAccountId, String duplicateAccountId,
                              Decision decision, List<String> blockers, List<String> actions) {}
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 定义业务状态或固定角色取值。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public enum Decision { MERGE, REVIEW, BLOCKED }
 }

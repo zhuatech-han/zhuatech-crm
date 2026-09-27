@@ -1,4 +1,4 @@
-/* Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/ */
+/* Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2 */
 package cn.zhuatech.crm.service;
 
 import jakarta.validation.constraints.Email;
@@ -14,11 +14,15 @@ import java.util.List;
  * 在线索转客户前统一执行资格、重复客户、授权和数据归属检查。
  *
  * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
  */
 @Service
 public class LeadConversionGovernanceService {
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 依据输入和治理规则返回评估结果，不自动执行第三方业务。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public Assessment assess(Request request) {
         List<String> blockers = new ArrayList<>();
@@ -52,7 +56,10 @@ public class LeadConversionGovernanceService {
     }
 
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 封装 Request 的业务输入或返回字段。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public record Request(@NotBlank String leadId, @NotBlank String companyName,
                           @Email @NotBlank String contactEmail,
@@ -65,13 +72,19 @@ public class LeadConversionGovernanceService {
                           boolean sourceEvidenceArchived, boolean downstreamSyncReady) {}
 
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 封装 Assessment 的业务输入或返回字段。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public record Assessment(String leadId, Decision decision, int qualificationScore,
                              String matchedAccountId, List<String> blockers, List<String> actions) {}
 
     /**
-     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     * 定义业务状态或固定角色取值。
+     *
+     * Copyright 2026 上海如静知华信息科技有限公司
+     * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
      */
     public enum Decision { CONVERT, LINK_EXISTING, REVIEW, BLOCKED }
 }
