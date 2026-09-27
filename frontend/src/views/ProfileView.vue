@@ -51,7 +51,7 @@ function logout() { auth.logout(); router.replace('/login') }
       <van-button block color="#2856a8" :disabled="!password.currentPassword || password.newPassword.length < 12" :loading="saving" @click="savePassword">保存新密码</van-button>
     </section>
     <button class="logout" @click="logout">退出登录</button>
-    <p class="copyright">© 2026 上海如静知华信息科技有限公司<br />仅限个人非商业学习交流 · 商用须书面授权</p>
+    <p class="copyright">© 2026 上海如静知华信息科技有限公司<br />公开源码学习版 v1.0.0 · 商用须书面授权<br />微信 zhuatech / zhuatech2</p>
   </div>
 </template>
 
