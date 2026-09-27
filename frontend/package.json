@@ -2,10 +2,27 @@
   "name": "@zhuatech/crm-h5",
   "version": "1.0.0",
   "private": true,
-  "description": "知华科技 CRM 社区源码版移动端（仅限个人非商业学习交流）",
+  "description": "知华科技 CRM 公开源码学习版移动端（仅限个人非商业学习交流）",
   "author": "上海如静知华信息科技有限公司",
-  "license": "SEE LICENSE IN LICENSE",
-  "scripts": { "dev": "vite", "build": "vite build", "preview": "vite preview" },
-  "dependencies": { "axios": "1.18.1", "pinia": "4.0.2", "vant": "4.10.0", "vue": "3.5.40", "vue-router": "5.2.0" },
-  "devDependencies": { "@vitejs/plugin-vue": "6.0.8", "vite": "8.1.5" }
+  "license": "SEE LICENSE IN ../LICENSE",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "axios": "1.18.1",
+    "pinia": "4.0.2",
+    "vant": "4.10.0",
+    "vue": "3.5.40",
+    "vue-router": "5.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "6.0.8",
+    "vite": "8.1.5"
+  },
+  "homepage": "https://www.zhuatech.cn/",
+  "engines": {
+    "node": ">=24.19.0"
+  }
 }
