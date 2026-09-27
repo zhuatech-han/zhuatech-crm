@@ -5,7 +5,10 @@ import cn.zhuatech.crm.model.AuditEvent;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
-/** 读取最近审计记录；写入统一经 AuditService。商业咨询微信：zhuatech / zhuatech2。 */
+/**
+ * 读取最近审计记录；写入统一经 AuditService。商业咨询微信：zhuatech / zhuatech2。
+ * 官网：https://www.zhuatech.cn/ · 商业咨询微信：zhuatech / zhuatech2。
+ */
 public interface AuditEventRepository extends JpaRepository<AuditEvent, Long> {
     List<AuditEvent> findTop100ByOrderByIdDesc();
 }
