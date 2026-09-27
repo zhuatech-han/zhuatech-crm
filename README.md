@@ -1,32 +1,32 @@
-# ZhuaTech CRM — 知华科技 CRM 社区源码版
+# ZhuaTech CRM — 知华科技 CRM 公开源码学习版
 
-[![License](https://img.shields.io/badge/license-Community_Source_Noncommercial-orange.svg)](LICENSE)
-[![Java](https://img.shields.io/badge/Java-21-ED8B00.svg)](backend/pom.xml)
-[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.0-6DB33F.svg)](backend/pom.xml)
-[![Vue](https://img.shields.io/badge/Vue-3-42b883.svg)](frontend/package.json)
+[个人非商业学习许可](LICENSE) · [Java 21 / Spring Boot 4](backend/pom.xml) · [Vue 3](frontend/package.json)
 
 ZhuaTech CRM（知华 CRM）是由 **[知华科技（上海如静知华信息科技有限公司）](https://www.zhuatech.cn/)** 提供源码的移动客户关系管理系统。销售人员可记录客户、联系人、商机、跟进和任务；管理员可查看销售工作台。前端为 Vue 3 H5，后端为 Java 21 / Spring Boot，数据存储使用 MySQL。
 
-![知华 CRM 实际登录页面](docs/images/crm-login.png)
+本地启动实拍，业务记录均为虚构验收数据。首页直接展示客户、商机与漏斗指标；统计与首页共用工作台。
 
-本地运行实拍，业务记录均为虚构验收数据：
-
-| 销售首页 | 客户详情 | 账号管理 |
+| 登录 | 首页与统计 | 核心业务 |
 | --- | --- | --- |
-| ![客户统计、快捷操作和最近跟进](docs/images/crm-home.jpg) | ![客户档案、跟进及联系人和商机入口](docs/images/crm-customer-detail.jpg) | ![管理员创建、启停账号与重置密码](docs/images/crm-admin-users.jpg) |
+| ![知华 CRM 登录](docs/screenshots/login.png) | ![销售首页及统计指标](docs/screenshots/home-statistics.png) | ![真实客户列表](docs/screenshots/business.png) |
 
-| 客户交接 | 客户数据 | 操作记录 |
+| 账号管理 | 操作记录 | 个人设置 |
 | --- | --- | --- |
-| ![填写新负责人和交接原因](docs/images/crm-customer-transfer.jpg) | ![管理员导入与导出客户档案](docs/images/crm-admin-data.jpg) | ![交接与导入操作记录](docs/images/crm-admin-audit.jpg) |
+| ![管理员管理成员账号](docs/screenshots/admin-users.png) | ![实际业务操作记录](docs/screenshots/audit.png) | ![个人资料与修改密码入口](docs/screenshots/account-settings.png) |
+
+客户详情、交接和数据导入导出：[客户详情](docs/images/crm-customer-detail.jpg)、[客户交接](docs/images/crm-customer-transfer.jpg)、[客户数据](docs/images/crm-admin-data.jpg)。
 
 后文单列的规则 API 不代表已有对应的 H5 操作页面。
 
 > [!IMPORTANT]
 > **使用限制：本工程仅允许个人用于非商业性的学习、研究与技术交流，不得用于任何商业用途。企业内部使用、生产部署、SaaS、项目交付、咨询实施、二次开发后销售或其他直接、间接商业使用，均须事先取得上海如静知华信息科技有限公司的书面商业授权。完整条款请阅读 [LICENSE](LICENSE)。**
 
-> 本项目为“源码开放/社区源码版”，因包含非商业限制，不属于 OSI 定义的开源软件。
+> 本项目为“公开源码学习版”，因包含非商业限制，不属于 OSI 定义的开源软件。
 
 > 官方网站：[https://www.zhuatech.cn/](https://www.zhuatech.cn/) · 商业授权、深度开发、私有化部署与定制功能，请联系知华科技。
+
+
+本项目由知华科技（上海如静知华信息科技有限公司）提供公开源码学习版本，主要用于个人学习、技术研究与非商业交流。未经书面授权不得商用。企业信息化建设、中小企业数字化转型、中小企业 AI 转型、私有化部署、软件外包、软件项目外包、软件实施、FDE 外包、OPC 技术支持及深度定制开发，请访问知华科技官网 https://www.zhuatech.cn/，或添加微信 zhuatech、zhuatech2 咨询。
 
 ## 功能特性
 
@@ -146,6 +146,27 @@ zhuatech-crm/
 - “知华科技”“ZhuaTech”相关名称及标识不因源码可见而授予商标许可。
 
 如果你需要商业授权、CRM 系统深度开发、销售流程定制、私有化部署、系统集成或技术支持，请访问 **[知华科技官网](https://www.zhuatech.cn/)** 联系上海如静知华信息科技有限公司。
+
+## 发布与运行边界
+
+本项目为 CRM 公开源码学习版。后端是 Java 21、Spring Boot、Spring Security、JPA 和 Flyway，前端 Vue 3/Vite，MySQL 8.4 持久化，Nginx 代理同源 `/api`。实际数据库脚本在 `backend/src/main/resources/db/migration/`，启动按版本执行迁移后验证实体结构；不能依赖开发机已有表。
+
+首次管理员为 `admin`，密码由 `CRM_ADMIN_PASSWORD` 注入；演示账号仅在启用演示且设置独立演示密码后初始化。环境变量名称见 [.env.example](.env.example)，初始化密码脚本不覆盖已有配置，生成文件应私下保存。更改环境变量不会重设已有账号密码。用户端是移动工作台，管理员在“我的”进入账号、客户数据与操作记录管理。
+
+容器构建先预取 Maven 依赖，使用锁定缓存和网络重试；`clean package` 执行单元及集成测试，失败不生成发布镜像。前端执行锁定依赖安装和生产构建。MySQL、后端及前端逐级等待健康，数据保存在独立卷；入口端口由 `WEB_PORT` 覆盖。改端口时同步设置 `CORS_ORIGINS` 为实际访问来源。
+
+```sh
+# 先按运行说明生成本项目 .env，再使用独立端口
+WEB_PORT=18188 CORS_ORIGINS=http://localhost:18188,http://127.0.0.1:18188 docker compose up --build -d
+```
+
+前端默认 `http://127.0.0.1:8088/`；后端内部健康检查 `http://backend:8080/actuator/health`，不单独公开后端端口。数据库升级前备份，再用新镜像启动；回退须恢复已验证的备份，不能用旧版程序直接连接更高版本结构。备份、恢复与全新数据库验收见 [部署说明](deploy/README.md)。
+
+当前角色是固定的管理员、销售经理与销售人员；有账号管理、API 权限和客户归属权限，但没有可编辑的角色/菜单/权限矩阵、部门或租户管理、通用字典参数后台及完整报价合同回款业务。列表提供现有筛选和排序，没有通用服务端分页。规则服务不等于企业系统集成。缺少这些能力时不应把本项目宣称为覆盖全部企业流程的完整 ERP/CRM。
+
+故障先检查容器健康和脱敏日志。数据库不健康时核对环境变量和卷；403 核对角色和归属，不能通过放宽权限处理；端口冲突覆盖 `WEB_PORT`；模型未配置时保留本地规则模式。生产部署应加 HTTPS、访问限制、可靠备份和定期恢复演练。软件按现状提供，企业交付内容和维护责任以书面授权约定为准。
+
+发布资料检查：`node scripts/verify-release.mjs`。此检查核对图片、原二维码、授权与示例配置；业务和部署仍须执行上文的实际验收。
 
 ## 联系知华科技
 
