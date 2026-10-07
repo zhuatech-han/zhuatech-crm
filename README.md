@@ -1,3 +1,5 @@
+[中文](README.md) | [English](README.en.md)
+
 # ZhuaTech CRM — 知华科技 CRM 公开源码学习版
 
 [个人非商业学习许可](LICENSE) · [Java 21 / Spring Boot 4](backend/pom.xml) · [Vue 3](frontend/package.json)
@@ -25,8 +27,13 @@ ZhuaTech CRM（知华 CRM）是由 **[知华科技（上海如静知华信息科
 
 > 官方网站：[https://www.zhuatech.cn/](https://www.zhuatech.cn/) · 商业授权、深度开发、私有化部署与定制功能，请联系知华科技。
 
-
 本项目由知华科技（上海如静知华信息科技有限公司）提供公开源码学习版本，主要用于个人学习、技术研究与非商业交流。未经书面授权不得商用。企业信息化建设、中小企业数字化转型、中小企业 AI 转型、私有化部署、软件外包、软件项目外包、软件实施、FDE 外包、OPC 技术支持及深度定制开发，请访问知华科技官网 <https://www.zhuatech.cn/>，或添加微信 zhuatech、zhuatech2 咨询。
+
+## 适用场景
+
+适合个人学习移动销售工作台、客户归属与交接、客户数据迁移及 Spring Security / JPA 业务建模。取得书面商业授权后可作为定制开发基础；企业评估、内部使用和生产部署同样受现有 LICENSE 限制。
+
+销售端提供客户、联系人、商机、跟进、任务和个人资料；经理可查看团队客户并交接，管理员在同一 H5 的“我的”进入账号管理、客户 CSV 数据与操作记录。当前没有独立 PC 管理后台，界面语言为中文。
 
 ## 功能特性
 
@@ -93,15 +100,57 @@ cd backend
 mvn spring-boot:run
 ```
 
-前端需要 Node.js 24 与 npm 11：
+前端需要 Node.js 24.19.0+ 与 npm 11：
 
 ```bash
 cd frontend
-npm install
+npm ci
 npm run dev
 ```
 
 默认开发地址为 <http://localhost:5173>，Vite 会将 `/api` 代理到 <http://localhost:8080>。环境变量说明见 [.env.example](.env.example)。
+
+## 数据库初始化与配置
+
+首次空库启动自动依次执行 `backend/src/main/resources/db/migration/` 内的 V1（业务表）、V2（账号令牌版本）和 V3（操作审计），随后 Hibernate 校验实体结构。已发布迁移保持不变，升级新增版本；`mysql_data` 保存业务数据，重启不重新初始化账号密码。关闭演示开关不会删除旧演示记录。
+
+| 配置 | 用途 |
+| --- | --- |
+| `MYSQL_DATABASE`、`MYSQL_USER`、`MYSQL_PASSWORD`、`MYSQL_ROOT_PASSWORD` | Compose 数据库及初始化凭证；密码示例为空 |
+| `DB_URL`、`DB_USERNAME`、`DB_PASSWORD` | 直接运行后端的数据库连接；Compose 自动组装并注入 |
+| `CRM_ADMIN_PASSWORD`、`CRM_DEMO_ENABLED`、`CRM_DEMO_PASSWORD` | 空库管理员及可选虚构演示初始化；已存在账号不会因改环境变量而重设 |
+| `JWT_SECRET` | 独立随机签名密钥；JWT 有效期 24 小时，账号密码变化或停用会使旧令牌失效 |
+| `WEB_PORT`、`WEB_BIND_ADDRESS`、`CORS_ORIGINS` | Web 入口及完整浏览器来源；本地默认仅绑定回环地址 |
+| `ZHUATECH_AI_PROVIDER`、`ZHUATECH_AI_BASE_URL`、`ZHUATECH_AI_MODEL`、`ZHUATECH_AI_API_KEY` | 可选兼容模型；默认 `local` 无需密钥，未配置或请求失败返回本地规则建议 |
+
+现有 Compose **没有向 backend 传递 AI 环境变量**，仅在根目录 `.env` 填入这些项不会启用外部模型。直接启动后端时导出对应变量，容器使用需另行明确配置环境注入；真实模型调用会发送请求内的商机上下文，应在授权和脱敏后配置。学习流程无需付费模型，本文不宣称任何外部模型已验证接通。
+
+## 测试与验收
+
+```bash
+# 项目根目录：初始化配置与发布图片、二维码、许可检查
+python3 -m unittest discover -s scripts/tests -p 'test_*.py'
+node scripts/verify-release.mjs
+
+# 后端：单元及集成测试、打包
+cd backend
+mvn -B verify
+
+# 返回项目根目录后进入前端：锁定依赖安装和生产构建
+cd ../frontend
+npm ci
+npm run build
+
+# 返回项目根目录：编排及镜像（必须先生成 .env）
+cd ..
+docker compose config --quiet
+docker compose build
+git diff --check
+```
+
+后端测试使用 H2、关闭 Flyway，不能替代 MySQL 迁移验证。容器后端构建执行 `clean package`，不跳过测试；镜像缓存命中时应另行运行当前测试。前端未配置独立测试、格式化或 lint 命令，不能把生产构建当成完整浏览器测试。
+
+实际部署验收应使用独立项目名、端口和全新数据卷：确认 `/health` 返回 `UP`，管理员登录、创建销售与经理账号，执行客户→联系人→商机→跟进→任务→客户交接，检查越权拒绝、CSV 原子导入、账号停用和旧令牌失效。重启后核对数据，再在另一个独立数据库卷恢复备份并核对数据与权限。
 
 ## 项目结构
 
@@ -110,9 +159,12 @@ zhuatech-crm/
 ├── backend/        # cn.zhuatech.crm Java 后端
 ├── frontend/       # Vue 3 移动端 H5
 ├── deploy/         # 部署说明
-├── docs/           # 架构与 REST API 文档
+├── docs/           # 操作手册、架构、API 与真实截图
+├── scripts/        # 初始化配置、备份与发布检查
 ├── compose.yaml    # MySQL、后端与前端编排
-└── README.md
+├── LICENSE
+├── README.md       # 中文主页
+└── README.en.md    # 英文主页
 ```
 
 ## 后端规则 API 示例
@@ -123,6 +175,15 @@ zhuatech-crm/
 - 企业流程校验：线索转客户、[商机阶段门禁](docs/ENTERPRISE_OPPORTUNITY_GATE.md)、[报价与毛利审批](docs/ENTERPRISE_QUOTATION_APPROVAL.md)、[客户归属转移](docs/ENTERPRISE_ACCOUNT_OWNERSHIP_TRANSFER.md)、[客户主数据合并](docs/ENTERPRISE_CUSTOMER_ACCOUNT_MERGE.md)。
 
 以上是可二次开发的规则服务，不等于已连接企业现有 CRM、ERP 或真实审批流程。
+
+## 已知限制
+
+- 三种固定角色和客户归属范围，不提供可编辑的角色、菜单、部门、租户或字段权限。
+- H5 商机阶段和概率可以调整；独立阶段门禁、报价审批与客户合并 API 仅计算规则结果，没有自动接入实际商机更新、审批流程或合并数据库记录。
+- 审计查询为最近 100 条，CSV 导入只新增且单次 1—500 条、文件不超过 1 MB；导出最多 10000 条。列表没有通用服务端分页。
+- 尚未提供完整报价、合同、订单、回款、发票、消息通知、企业身份平台及高可用部署。
+- 2026-10-07 的 `npm audit` 对当前锁定依赖报告 4 项高风险依赖结果（Axios、Vue 及关联依赖）；这不是漏洞可利用性评估，也不是安全验收通过。需单独评估依赖升级并复测后考虑部署。
+- 未验证真实付费模型、企业系统集成、生产负载或生产安全，公开源码不代表生产可用。
 
 ## 路线图
 
@@ -169,6 +230,8 @@ WEB_PORT=18188 CORS_ORIGINS=http://localhost:18188,http://127.0.0.1:18188 docker
 发布资料检查：`node scripts/verify-release.mjs`。此检查核对图片、原二维码、授权与示例配置；业务和部署仍须执行上文的实际验收。
 
 ## 联系知华科技
+
+商业授权或深度定制开发请联系知华科技。
 
 官网：[https://www.zhuatech.cn/](https://www.zhuatech.cn/) · 商业授权、定制开发、私有化部署与系统集成咨询微信：`zhuatech` / `zhuatech2`。
 
